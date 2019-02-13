@@ -16,10 +16,6 @@ public class Edge {
         this.weight = weight;
     }
 
-    public int getSource() {
-        return source;
-    }
-
     public int getTarget() {
         return target;
     }
