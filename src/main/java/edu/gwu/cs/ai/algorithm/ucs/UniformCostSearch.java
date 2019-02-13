@@ -1,8 +1,8 @@
-package algorithm.ucs;
+package edu.gwu.cs.ai.algorithm.ucs;
 
-import graph.Edge;
-import graph.Graph;
-import graph.Vertex;
+import edu.gwu.cs.ai.graph.Edge;
+import edu.gwu.cs.ai.graph.Graph;
+import edu.gwu.cs.ai.graph.Vertex;
 
 import java.util.Comparator;
 import java.util.PriorityQueue;

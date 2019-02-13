@@ -1,4 +1,4 @@
-package graph;
+package edu.gwu.cs.ai.graph;
 
 /**
  * The interface for an undirected weighted graph

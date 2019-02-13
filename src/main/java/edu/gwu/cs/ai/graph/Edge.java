@@ -1,4 +1,4 @@
-package graph;
+package edu.gwu.cs.ai.graph;
 
 /**
  * Represent the edges between vertices.

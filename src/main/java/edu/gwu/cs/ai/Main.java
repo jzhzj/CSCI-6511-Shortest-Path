@@ -1,8 +1,10 @@
-import algorithm.astar.AStar;
-import algorithm.ucs.UniformCostSearch;
-import graph.Graph;
-import graph.UndirectedWeightedGraph;
-import graph.Vertex;
+package edu.gwu.cs.ai;
+
+import edu.gwu.cs.ai.algorithm.astar.AStar;
+import edu.gwu.cs.ai.algorithm.ucs.UniformCostSearch;
+import edu.gwu.cs.ai.graph.Graph;
+import edu.gwu.cs.ai.graph.UndirectedWeightedGraph;
+import edu.gwu.cs.ai.graph.Vertex;
 
 import java.io.*;
 import java.util.Stack;

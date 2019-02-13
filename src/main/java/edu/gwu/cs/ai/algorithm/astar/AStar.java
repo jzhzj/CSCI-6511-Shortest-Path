@@ -1,13 +1,13 @@
-package algorithm.astar;
+package edu.gwu.cs.ai.algorithm.astar;
 
-import graph.Edge;
-import graph.Graph;
-import graph.Vertex;
+import edu.gwu.cs.ai.graph.Edge;
+import edu.gwu.cs.ai.graph.Graph;
+import edu.gwu.cs.ai.graph.Vertex;
 
 import java.util.*;
 
 /**
- * Using A* algorithm to find the shortest path to the target vertex
+ * Using A* edu.gwu.cs.ai.algorithm to find the shortest path to the target vertex
  *
  * @author qijiuzhi
  */

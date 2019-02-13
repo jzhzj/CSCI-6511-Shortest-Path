@@ -1,4 +1,4 @@
-package graph;
+package edu.gwu.cs.ai.graph;
 
 import java.util.HashSet;
 import java.util.Set;
