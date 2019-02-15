@@ -16,6 +16,8 @@ public class Vertex {
      * The cost from the source vertex to this vertex
      */
     private int pathCost;
+    private int gValue;
+    private int fValue;
     private static List<Vertex> vertices = new ArrayList<>();
 
     private Vertex(int vertexNum, int squareX, int squareY) {
@@ -37,6 +39,22 @@ public class Vertex {
         this.pathCost = pathCost;
     }
 
+    public int getfValue() {
+        return fValue;
+    }
+
+    public void setfValue(int fValue) {
+        this.fValue = fValue;
+    }
+
+    public int getgValue() {
+        return gValue;
+    }
+
+    public void setgValue(int gValue) {
+        this.gValue = gValue;
+    }
+
     public int getVertexNum() {
         return vertexNum;
     }
@@ -51,6 +69,10 @@ public class Vertex {
 
     public int getSquareY() {
         return squareY;
+    }
+
+    public static void clearVertices() {
+        vertices = new ArrayList<>();
     }
 
     public static Vertex getVertex(int nodeNum) {

@@ -36,32 +36,31 @@ public class UniformCostSearch {
         queue.add(Vertex.getVertex(sourceVertex));
         boolean found = false;
 
-        do {
-            int current = queue.poll().getVertexNum();
-            marked[current] = true;
+        while (!queue.isEmpty() && !found) {
+            Vertex curV = queue.poll();
+            marked[curV.getVertexNum()] = true;
 
-            if (current == targetVertex) {
+            if (curV.getVertexNum() == targetVertex) {
                 found = true;
             }
 
-            for (Edge e : graph.adj(current)) {
+            for (Edge e : graph.adj(curV.getVertexNum())) {
                 int neighbor = e.getTarget();
                 int weight = e.getWeight();
 
                 Vertex neighborV = Vertex.getVertex(neighbor);
-                Vertex curV = Vertex.getVertex(current);
                 if (!marked[neighbor] && !queue.contains(neighborV)) {
                     neighborV.setPathCost(curV.getPathCost() + weight);
-                    edgeTo[neighbor] = current;
+                    edgeTo[neighbor] = curV.getVertexNum();
                     queue.add(neighborV);
                 } else if (queue.contains(neighborV) && neighborV.getPathCost() > curV.getPathCost() + weight) {
-                    edgeTo[neighbor] = current;
+                    edgeTo[neighbor] = curV.getVertexNum();
                     neighborV.setPathCost(curV.getPathCost() + weight);
                     queue.remove(neighborV);
                     queue.add(neighborV);
                 }
             }
-        } while (!queue.isEmpty() && !found);
+        }
     }
 
     /**

@@ -41,6 +41,8 @@ public class Main {
 
         // execute the informed search
         informed(sourceVertex, targetVertex, vertexNum);
+        Vertex.clearVertices();
+        in.close();
     }
 
     /**

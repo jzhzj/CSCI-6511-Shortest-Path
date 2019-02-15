@@ -16,62 +16,51 @@ public class AStar {
     private int[] edgeTo;
     private final int sourceVertex;
     private final int targetVertex;
-    /**
-     * backward cost + heuristic
-     */
-    private int[] fValue;
-    /**
-     * backward cost
-     */
-    private int[] gValue;
-    /**
-     * the set storing vertices to be explored
-     */
-    private final List<Integer> fringe;
-
 
     public AStar(Graph graph, int sourceVertex, int targetVertex, int maxSize) {
         marked = new boolean[graph.getVertexNum()];
         edgeTo = new int[graph.getEdgeNum()];
         this.sourceVertex = sourceVertex;
         this.targetVertex = targetVertex;
-        fringe = new ArrayList<>(maxSize);
-        fringe.add(sourceVertex);
-        gValue = new int[maxSize];
-        gValue[sourceVertex] = 0;
-        fValue = new int[maxSize];
-        Arrays.fill(fValue, Integer.MAX_VALUE);
-        fValue[sourceVertex] = (int) heuristic(sourceVertex, targetVertex);
-        astar(graph);
+        astar(graph, maxSize);
     }
 
-    private void astar(Graph graph) {
+    private void astar(Graph graph, int maxSize) {
+        Vertex.getVertex(sourceVertex).setgValue(0);
+        Vertex.getVertex(sourceVertex).setfValue((int) heuristic(sourceVertex, targetVertex));
+        PriorityQueue<Vertex> queue = new PriorityQueue<>(maxSize, Comparator.comparingInt(v -> v.getfValue()));
+        queue.add(Vertex.getVertex(sourceVertex));
+        boolean found = false;
 
-        while (!fringe.isEmpty()) {
-            int current = fringe.get(0);
-            marked[current] = true;
-            if (current == targetVertex) {
-                return;
+        while (!queue.isEmpty() && !found) {
+            Vertex curV = queue.poll();
+            marked[curV.getVertexNum()] = true;
+            if (curV.getVertexNum() == targetVertex) {
+                found = true;
             }
-            fringe.remove(0);
+
+            for (Edge e : graph.adj(curV.getVertexNum())) {
 
 
-            for (Edge e : graph.adj(current)) {
                 int neighbor = e.getTarget();
                 if (marked[neighbor]) {
                     continue;
                 }
-                int tentativeGValue = gValue[current] + e.getWeight();
-                if (!fringe.contains(neighbor)) {
-                    fringe.add(neighbor);
-                } else if (tentativeGValue >= gValue[neighbor]) {
-                    continue;
+                Vertex neighborV = Vertex.getVertex(neighbor);
+                int tentativeGValue = curV.getgValue() + e.getWeight();
+                int estimatedFScore = tentativeGValue + (int) heuristic(neighbor, targetVertex);
+                if (!marked[neighbor] && !queue.contains(neighborV)) {
+                    edgeTo[neighbor] = curV.getVertexNum();
+                    neighborV.setfValue(estimatedFScore);
+                    neighborV.setgValue(tentativeGValue);
+                    queue.add(neighborV);
+                } else if (queue.contains(neighborV) && estimatedFScore < neighborV.getfValue()) {
+                    edgeTo[neighbor] = curV.getVertexNum();
+                    neighborV.setgValue(tentativeGValue);
+                    neighborV.setfValue(estimatedFScore);
+                    queue.remove(neighborV);
+                    queue.add(neighborV);
                 }
-                edgeTo[neighbor] = current;
-                gValue[neighbor] = tentativeGValue;
-                int estimatedFScore = gValue[neighbor] + (int) heuristic(neighbor, targetVertex);
-                fValue[neighbor] = estimatedFScore;
-                Collections.sort(fringe, Comparator.comparingInt(v -> fValue[v]));
             }
         }
     }
